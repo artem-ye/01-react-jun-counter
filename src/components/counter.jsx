@@ -1,32 +1,37 @@
-import React, {useState} from 'react';
+import React from 'react';
 
-const Counter = () => {
-    const [count, setCount] = useState(0);
-
-    const formCount = () => {
-        return count === 0 ? 'Ноль' : count;
+const Counter = ({id, value, name, onIncrement, onDecrement, onDelete}) => {          
+    const formValue = () => {
+        return value === 0 ? 'Ноль' : value;
     };
 
-    const getBageClasses = () => {
-        return 'badge m-2 bg-' + (count === 0 ? 'danger' : 'primary');
-    };
-
-    const handleIncrement = (productId) => {
-        setCount(count + 1);
-    };
-
-    const handleDecrement = (productId) => {
-        count > 0 && setCount(count-1);
-    };
+    const getBadgeClasses = () => {
+        return 'badge m-2 bg-' + (value === 0 ? 'danger' : 'primary');
+    };    
 
     return (
-        <>
-            <span className={getBageClasses()}>
-                {formCount()}
+        <div>
+            <h1>{name}</h1>
+            <span className={getBadgeClasses()}>
+                {formValue()}
             </span>
-            <button onClick={() => handleIncrement({id: 1})} className='btn btn-secondary btn-sm m-1'>Increment</button>
-            <button onClick={() => handleDecrement({id: 1})} className='btn btn-secondary btn-sm'>Decrement</button>
-        </>
+            <button 
+                onClick={
+                    () => onIncrement(id)
+                } 
+                className='btn btn-secondary btn-sm m-1'>Increment</button>
+            <button 
+                onClick={
+                    () => onDecrement(id)
+                } 
+                className='btn btn-secondary btn-sm'>Decrement</button>
+            <button
+                onClick={
+                    () => onDelete(id)
+                } 
+                className='btn btn-sm btn-danger m-2'
+            >delete</button>
+        </div>
     );
 }
  
